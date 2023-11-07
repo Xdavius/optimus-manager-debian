@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+	echo "optimus-manager : cleaning up auto-generated Xorg conf"
+
+    xorg_conf=/etc/X11/xorg.conf.d/10-optimus-manager.conf
+    if [ -f "$xorg_conf" ]; then
+        rm $xorg_conf
+    fi
+
+    echo "optimus-manager : disabling optimus-manager.service"
+
+    service_file_link=/etc/systemd/system/graphical.target.wants/optimus-manager.service
+    if [ -L "$service_file_link" ]; then
+        rm $service_file_link
+    fi
